@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Blicq — Building Across Sectors. Designed for Scale.</title>
+<meta name="description" content="Blicq is a multi-sector parent company developing and integrating ventures across digital and physical industries." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+  :root{
+    --bg:#0a0c10; --fg:#f3f5f8; --muted:#8a92a3; --muted-2:#5b6172;
+    --card:#11141a; --border:rgba(255,255,255,.08);
+    --orange:#ff8a3d; --green:#7cf2a2; --blue:#9bc9ff;
+    --display:"Space Grotesk",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;border-color:var(--border)}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--display);-webkit-font-smoothing:antialiased;overflow-x:hidden;overflow-wrap:break-word}
+  html{scroll-behavior:smooth}
+  h1,h2,h3,h4,p,span,a,li{overflow-wrap:break-word}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:var(--bg)}
+
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+  @media(min-width:1024px){.container{padding:0 40px}}
+
+  /* Nav */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(16px);background:rgba(10,12,16,.6);border-bottom:1px solid var(--border)}
+  .nav-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:8px}
+  .dot{position:relative;display:inline-flex;height:10px;width:10px}
+  .dot .ping{position:absolute;inset:0;border-radius:9999px;background:var(--orange);opacity:.75;animation:ping 1.6s cubic-bezier(0,0,.2,1) infinite}
+  .dot .core{position:relative;height:10px;width:10px;border-radius:9999px;background:var(--orange)}
+  .brand-name{font-size:18px;letter-spacing:.2em;font-weight:500}
+  .nav-links{display:none;gap:40px;font-size:12px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  @media(min-width:768px){.nav-links{display:flex}}
+  .nav-links a:hover{color:var(--fg)}
+  @keyframes ping{75%,100%{transform:scale(2);opacity:0}}
+
+  /* Sections */
+  section{position:relative;padding:96px 0}
+  @media(min-width:1024px){section{padding:160px 0}}
+  .border-top{border-top:1px solid var(--border)}
+  .label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin-bottom:24px}
+
+  .grid-bg{background-image:linear-gradient(to right,rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px}
+  .noise-bg{background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.08) 1px,transparent 0);background-size:32px 32px}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:64px}
+  .abs{position:absolute;inset:0}
+  .orb{position:absolute;border-radius:9999px;filter:blur(80px);animation:glow-pulse 4s ease-in-out infinite}
+  @keyframes glow-pulse{0%,100%{opacity:.55}50%{opacity:.95}}
+  @keyframes fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .fade-up{animation:fade-up .9s ease-out both}
+  @keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+  .scan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(255,138,61,.4),transparent);animation:scan 6s linear infinite}
+
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:32px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .hero-eyebrow .bar{height:1px;width:40px;background:var(--orange)}
+  .h1{font-size:clamp(44px,8vw,112px);font-weight:300;line-height:.95;letter-spacing:-.02em;margin:0}
+  .italic{font-style:italic;font-weight:400}
+  .c-orange{color:var(--orange)} .c-green{color:var(--green)} .c-blue{color:var(--blue)}
+  .glow-orange{text-shadow:0 0 24px rgba(255,138,61,.6)}
+  .glow-green{text-shadow:0 0 24px rgba(124,242,162,.6)}
+  .glow-blue{text-shadow:0 0 24px rgba(155,201,255,.6)}
+  .lead{margin:40px 0 0;max-width:560px;color:var(--muted);font-size:16px;line-height:1.6}
+  .cta{margin-top:48px;display:inline-flex;align-items:center;gap:12px;padding:16px 32px;background:var(--orange);color:#0a0c10;border-radius:9999px;font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 0 40px -8px var(--orange),0 0 80px -20px var(--orange);transition:transform .2s}
+  .cta:hover{transform:scale(1.02)}
+
+  /* Philosophy */
+  .grid12{display:grid;grid-template-columns:repeat(1,1fr);gap:48px}
+  @media(min-width:1024px){.grid12{grid-template-columns:repeat(12,1fr);gap:80px}}
+  .col-4{grid-column:span 1} .col-8{grid-column:span 1}
+  @media(min-width:1024px){.col-4{grid-column:span 4}.col-8{grid-column:span 8}.sticky{position:sticky;top:128px}}
+  .h2{font-size:clamp(28px,4vw,40px);font-weight:300;line-height:1.15;margin:0}
+  .h2-lg{font-size:clamp(34px,5.5vw,60px);font-weight:300;line-height:1.05;margin:0}
+  .big{font-size:clamp(22px,2.6vw,30px);font-weight:300;line-height:1.3;color:rgba(243,245,248,.9)}
+  .body{font-size:18px;color:var(--muted);line-height:1.7;max-width:640px}
+  .stats{display:grid;grid-template-columns:1fr;gap:24px;padding-top:40px;border-top:1px solid var(--border);margin-top:40px}
+  @media(min-width:640px){.stats{grid-template-columns:repeat(3,1fr)}}
+  .stat-k{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .stat-v{margin-top:8px;font-size:24px;font-weight:300}
+
+  /* Sectors */
+  .sec-head{display:flex;flex-direction:column;gap:24px;margin-bottom:80px}
+  @media(min-width:1024px){.sec-head{flex-direction:row;align-items:flex-end;justify-content:space-between}}
+  .cards{display:grid;grid-template-columns:1fr;gap:24px}
+  @media(min-width:768px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .card{position:relative;background:rgba(17,20,26,.4);backdrop-filter:blur(8px);border-radius:16px;padding:32px;overflow:hidden;transition:background .5s}
+  @media(min-width:1024px){.card{padding:40px}}
+  .card:hover{background:rgba(17,20,26,.6)}
+  .neon-border{position:relative}
+  .neon-border::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--orange),transparent 40%,var(--blue));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.6}
+  .card-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:48px}
+  .card-id{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--muted)}
+  .card-dot{height:8px;width:8px;border-radius:9999px}
+  .dot-blue{background:var(--blue);box-shadow:0 0 40px -8px var(--blue),0 0 80px -20px var(--blue)}
+  .dot-orange{background:var(--orange);box-shadow:0 0 40px -8px var(--orange),0 0 80px -20px var(--orange)}
+  .card h3{font-size:clamp(26px,3vw,36px);font-weight:300;margin:0 0 16px}
+  .card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 40px;max-width:440px}
+  .card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .card li{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(243,245,248,.85)}
+  .card li .ln{height:1px;width:24px;transition:width .3s}
+  .card:hover li .ln{width:48px}
+  .ln-blue{background:var(--blue)} .ln-orange{background:var(--orange)}
+
+  /* Ventures */
+  .venture{position:relative;display:block;background:rgba(17,20,26,.4);backdrop-filter:blur(8px);border-radius:16px;overflow:hidden;transition:background .5s}
+  .venture:hover{background:rgba(17,20,26,.6)}
+  .v-inner{position:relative;display:flex;flex-direction:column;gap:32px;padding:32px}
+  @media(min-width:768px){.v-inner{flex-direction:row;align-items:center;justify-content:space-between}}
+  @media(min-width:1024px){.v-inner{padding:56px}}
+  .v-tag{display:flex;align-items:center;gap:12px}
+  .v-tag .gd{height:8px;width:8px;border-radius:9999px;background:var(--green);box-shadow:0 0 40px -8px var(--green),0 0 80px -20px var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{50%{opacity:.5}}
+  .v-tag .t1{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--green)}
+  .v-tag .t2{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .v-name{display:flex;align-items:baseline;gap:16px;margin-top:16px}
+  .v-name h3{font-size:clamp(40px,7vw,80px);font-weight:300;letter-spacing:-.02em;margin:0}
+  .v-name .url{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .v-cta{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;transition:color .3s}
+  .venture:hover .v-cta{color:var(--orange)}
+  .v-cta .ln{height:1px;width:32px;background:currentColor;transition:width .3s}
+  .venture:hover .v-cta .ln{width:64px}
+
+  /* Phase */
+  .timeline{position:relative;padding-left:24px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:40px}
+  .ph{position:relative}
+  .ph .pd{position:absolute;left:-31px;top:6px;height:12px;width:12px;border-radius:9999px;background:var(--green);box-shadow:0 0 40px -8px var(--green),0 0 80px -20px var(--green);outline:4px solid var(--bg)}
+  .ph-id{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--muted);margin-bottom:8px}
+  .ph-id .ac{color:var(--green)}
+  .ph-l{font-size:clamp(18px,2vw,24px);font-weight:300}
+
+  /* Vision */
+  .vision-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:9999px;background:rgba(255,138,61,.05);filter:blur(80px)}
+  .vision-lines{display:flex;flex-direction:column;gap:48px;max-width:1100px}
+  @media(min-width:1024px){.vision-lines{gap:64px}}
+  .vline{font-size:clamp(34px,6vw,84px);font-weight:300;line-height:1.05}
+  .vline .dim{color:rgba(243,245,248,.4)}
+  .vision-foot{margin-top:96px;padding-top:40px;border-top:1px solid var(--border);max-width:560px}
+  .vision-foot p{font-size:14px;color:var(--muted);margin:0}
+
+  /* Footer */
+  footer{position:relative;border-top:1px solid var(--border);padding:64px 0}
+  .foot{display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+  @media(min-width:1024px){.foot{flex-direction:row;align-items:flex-end}}
+  .foot-brand{display:flex;align-items:center;gap:8px;margin-bottom:24px}
+  .foot-brand .d{height:10px;width:10px;border-radius:9999px;background:var(--orange);box-shadow:0 0 40px -8px var(--orange)}
+  .foot-tag{font-size:clamp(22px,2.6vw,30px);font-weight:300;line-height:1.2;max-width:440px;margin:0}
+  .foot-meta{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+  @media(min-width:1024px){.foot-meta{text-align:right;align-items:flex-end}}
+  .foot-meta .ln{display:flex;align-items:center;gap:8px}
+  .foot-meta .gd{height:6px;width:6px;border-radius:9999px;background:var(--green);animation:pulse 2s infinite}
+
+  /* LED glow */
+  .led-char{--glow:0;display:inline;transition:text-shadow 180ms cubic-bezier(.22,1,.36,1);
+    text-shadow:
+      0 0 calc(8px*var(--glow)) rgba(255,255,255,calc(1*var(--glow))),
+      0 0 calc(24px*var(--glow)) rgba(255,255,255,calc(.8*var(--glow))),
+      0 0 calc(44px*var(--glow)) rgba(255,255,255,calc(.45*var(--glow)));
+  }
+  .led-char.led-fading{transition:text-shadow 520ms cubic-bezier(.16,1,.3,1)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <span class="dot"><span class="ping"></span><span class="core"></span></span>
+      <span class="brand-name">BLICQ</span>
+    </a>
+    <div class="nav-links">
+      <a href="#vision">Philosophy</a>
+      <a href="#sectors">Sectors</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#phase">Phase</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="abs grid-bg" style="opacity:.6"></div>
+  <div class="abs" style="background:linear-gradient(to bottom,transparent,rgba(10,12,16,.4),var(--bg))"></div>
+  <div class="abs" style="overflow:hidden;filter:blur(80px) saturate(120%)">
+    <div class="orb" style="top:-160px;left:-160px;width:500px;height:500px;background:rgba(255,138,61,.2)"></div>
+    <div class="orb" style="top:50%;right:-160px;width:600px;height:600px;background:rgba(155,201,255,.15);animation-delay:2s"></div>
+    <div class="orb" style="bottom:0;left:33%;width:400px;height:400px;background:rgba(124,242,162,.1);animation-delay:4s"></div>
+  </div>
+  <div class="abs" style="pointer-events:none;background:linear-gradient(to bottom,rgba(10,12,16,.3),rgba(10,12,16,.1),rgba(10,12,16,.4));backdrop-filter:blur(2px)"></div>
+  <div class="abs" style="pointer-events:none;overflow:hidden"><div class="scan"></div></div>
+
+  <div class="container" style="position:relative;width:100%">
+    <div class="fade-up" style="max-width:880px">
+      <div class="hero-eyebrow"><span class="bar"></span><span>Parent Company · Multi-Sector</span></div>
+      <h1 class="h1">Building Across <span class="c-orange glow-orange italic">Sectors.</span><br>Designed for <span class="c-blue glow-blue italic">Scale.</span></h1>
+      <p class="lead">Blicq is a multi-sector parent company developing and integrating ventures across digital and physical industries.</p>
+      <a href="#vision" class="cta">Explore Vision <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="vision">
+  <div class="container">
+    <div class="grid12">
+      <div class="col-4">
+        <div class="sticky">
+          <div class="label">/ 01 — Philosophy</div>
+          <h2 class="h2">A unified system of <span class="c-green glow-green italic">innovation.</span></h2>
+        </div>
+      </div>
+      <div class="col-8">
+        <p class="big">Blicq operates as a unified system of innovation — designing, building, and scaling ventures across sectors.</p>
+        <p class="body" style="margin-top:32px">From digital infrastructure to real-world products, every layer is built with long-term integration in mind. We think in systems, not silos. In frameworks, not isolated launches.</p>
+        <div class="stats">
+          <div><div class="stat-k">Multi</div><div class="stat-v">Sector</div></div>
+          <div><div class="stat-k">Long</div><div class="stat-v">Horizon</div></div>
+          <div><div class="stat-k">Integrated</div><div class="stat-v">Framework</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section id="sectors" class="border-top">
+  <div class="abs noise-bg" style="opacity:.3"></div>
+  <div class="container" style="position:relative">
+    <div class="sec-head">
+      <div>
+        <div class="label">/ 02 — Sectors</div>
+        <h2 class="h2-lg">One system.<br><span class="c-orange glow-orange italic">Multiple frontiers.</span></h2>
+      </div>
+      <p style="font-size:14px;color:var(--muted);max-width:340px;margin:0">A conceptual map of where Blicq builds — abstracted by intent, not by product.</p>
+    </div>
+    <div class="cards">
+      <article class="card neon-border">
+        <div class="card-row"><span class="card-id">01</span><span class="card-dot dot-blue"></span></div>
+        <h3>Digital Systems</h3>
+        <p>Software, infrastructure, and intelligence layers built for compounding leverage.</p>
+        <ul>
+          <li><span class="ln ln-blue"></span><span>SaaS Platforms</span></li>
+          <li><span class="ln ln-blue"></span><span>Scalable Infrastructure</span></li>
+          <li><span class="ln ln-blue"></span><span>Data-driven Ecosystems</span></li>
+        </ul>
+      </article>
+      <article class="card neon-border">
+        <div class="card-row"><span class="card-id">02</span><span class="card-dot dot-orange"></span></div>
+        <h3>Physical &amp; Consumer</h3>
+        <p>Tangible products and consumer infrastructure designed for real-world scale.</p>
+        <ul>
+          <li><span class="ln ln-orange"></span><span>Products &amp; Supply Chains</span></li>
+          <li><span class="ln ln-orange"></span><span>FMCG / Food Innovation</span></li>
+          <li><span class="ln ln-orange"></span><span>Distribution Systems</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section id="ventures" class="border-top">
+  <div class="abs grid-bg" style="opacity:.15"></div>
+  <div class="container" style="position:relative">
+    <div class="sec-head">
+      <div>
+        <div class="label">/ 03 — Ventures</div>
+        <h2 class="h2-lg">In motion.<br><span class="c-blue glow-blue italic">Building now.</span></h2>
+      </div>
+    </div>
+    <a class="venture neon-border" href="https://www.moveq.in/" target="_blank" rel="noopener noreferrer">
+      <div class="abs" style="overflow:hidden;border-radius:16px">
+        <div style="position:absolute;top:-128px;right:-128px;width:384px;height:384px;border-radius:9999px;background:rgba(155,201,255,.1);filter:blur(100px)"></div>
+        <div style="position:absolute;bottom:-128px;left:-128px;width:384px;height:384px;border-radius:9999px;background:rgba(255,138,61,.1);filter:blur(100px)"></div>
+      </div>
+      <div class="v-inner">
+        <div>
+          <div class="v-tag">
+            <span class="gd"></span>
+            <span class="t1">In Development</span>
+            <span class="t2">Venture 01</span>
+          </div>
+          <div class="v-name"><h3>Move<span class="c-orange glow-orange">Q</span></h3><span class="url">moveq.in</span></div>
+        </div>
+        <div class="v-cta"><span>Visit Site</span><span class="ln"></span><span>↗</span></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- PHASE -->
+<section id="phase" class="border-top">
+  <div class="container">
+    <div class="grid12">
+      <div class="col-4" style="grid-column:span 1">
+        <div class="label">/ 04 — Current Phase</div>
+        <h2 class="h2" style="font-size:clamp(28px,4.2vw,46px)">Building the <span class="c-green glow-green italic">foundation</span> before expanding the surface.</h2>
+        <p class="body" style="margin-top:32px;max-width:440px">Execution over exposure. Framework over announcement. Blicq operates with intent — surfacing only what is ready to compound.</p>
+      </div>
+      <div class="col-8" style="grid-column:span 1">
+        <div class="timeline">
+          <div class="ph"><span class="pd"></span><div class="ph-id">PHASE 01 <span class="ac">· ACTIVE</span></div><div class="ph-l">Currently in development</div></div>
+          <div class="ph"><span class="pd"></span><div class="ph-id">PHASE 02 <span class="ac">· ACTIVE</span></div><div class="ph-l">Building foundational systems</div></div>
+          <div class="ph"><span class="pd"></span><div class="ph-id">PHASE 03 <span class="ac">· ACTIVE</span></div><div class="ph-l">Selective visibility, intentional growth</div></div>
+          <div class="ph"><span class="pd"></span><div class="ph-id">PHASE 04 <span class="ac">· ACTIVE</span></div><div class="ph-l">Expansion across industries</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="border-top" style="overflow:hidden">
+  <div class="abs grid-bg" style="opacity:.3"></div>
+  <div class="vision-orb"></div>
+  <div class="container" style="position:relative">
+    <div class="label">/ 05 — Vision</div>
+    <div class="vision-lines" style="margin-top:64px">
+      <div class="vline"><span class="dim">From fragmented industries</span> <span class="c-orange italic">to unified systems.</span></div>
+      <div class="vline"><span class="dim">Digital to physical —</span> <span class="c-blue italic">built under one framework.</span></div>
+      <div class="vline"><span class="dim">Not just companies.</span> <span class="c-green italic">Connected ecosystems.</span></div>
+    </div>
+    <div class="vision-foot"><p>Designed to expand across industries — from software to consumer markets.</p></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <div class="foot-brand"><span class="d"></span><span class="brand-name">BLICQ</span></div>
+        <p class="foot-tag">Blicq is <span class="c-orange italic">building.</span><br>The rest will follow.</p>
+      </div>
+      <div class="foot-meta">
+        <div>© <span id="yr"></span> Blicq Holdings</div>
+        <div class="ln"><span class="gd"></span><span>All Systems Building</span></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Per-letter LED glow (matches CursorGlow.tsx behavior)
+  (function(){
+    const root = document.querySelector('main');
+    if(!root) return;
+    const SKIP = new Set(['SCRIPT','STYLE','NOSCRIPT','SVG','CANVAS','IMG','VIDEO','INPUT','TEXTAREA','CODE','PRE']);
+    function split(node){
+      if(node.nodeType===3){
+        const t = node.nodeValue||''; if(!t.trim()) return;
+        const p = node.parentElement; if(!p||p.classList.contains('led-char')||SKIP.has(p.tagName)) return;
+        const f = document.createDocumentFragment();
+        for(const ch of t){
+          if(ch===' '||ch==='\n'||ch==='\t') f.appendChild(document.createTextNode(ch));
+          else { const s=document.createElement('span'); s.className='led-char'; s.textContent=ch; f.appendChild(s); }
+        }
+        p.replaceChild(f,node);
+      } else if(node.nodeType===1){
+        const el=node; if(SKIP.has(el.tagName)||el.classList.contains('led-char')) return;
+        Array.from(node.childNodes).forEach(split);
+      }
+    }
+    split(root);
+
+    let entries=[], mx=-9999, my=-9999, raf=0, refresh=true;
+    const R=140, R2=R*R, TH=0.04;
+
+    function refreshRects(){
+      entries=[];
+      root.querySelectorAll('.led-char').forEach(el=>{
+        const r=el.getBoundingClientRect();
+        if(!r.width||!r.height) return;
+        if(r.bottom<-R||r.top>innerHeight+R) return;
+        entries.push({el,left:r.left,right:r.right,top:r.top,bottom:r.bottom,cx:r.left+r.width/2,cy:r.top+r.height/2,last:0});
+      });
+      refresh=false;
+    }
+    function setG(e,v){
+      if(v<e.last) e.el.classList.add('led-fading'); else e.el.classList.remove('led-fading');
+      e.el.style.setProperty('--glow', v===0?'0':v.toFixed(2));
+      e.last=v;
+    }
+    function update(){
+      raf=0; if(refresh) refreshRects();
+      for(let i=0;i<entries.length;i++){
+        const e=entries[i];
+        if(mx<e.left-R||mx>e.right+R||my<e.top-R||my>e.bottom+R){ if(e.last!==0) setG(e,0); continue; }
+        const dx=mx-e.cx, dy=my-e.cy, d2=dx*dx+dy*dy;
+        let v;
+        if(d2<=36) v=1;
+        else if(d2>R2){ if(e.last!==0) setG(e,0); continue; }
+        else { const t=1-Math.sqrt(d2)/R; v=t*t*(3-2*t); }
+        if(Math.abs(v-e.last)>TH) setG(e,v);
+      }
+    }
+    function schedule(){ if(!raf) raf=requestAnimationFrame(update); }
+    addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;schedule();},{passive:true});
+    addEventListener('mouseout',e=>{if(!e.relatedTarget){mx=my=-9999;schedule();}},{passive:true});
+    document.addEventListener('mouseleave',()=>{mx=my=-9999;schedule();},{passive:true});
+    addEventListener('blur',()=>{mx=my=-9999;schedule();});
+    addEventListener('touchstart',e=>{const t=e.touches[0]||e.changedTouches[0];if(!t)return;mx=t.clientX;my=t.clientY;schedule();},{passive:true});
+    addEventListener('touchmove',e=>{const t=e.touches[0]||e.changedTouches[0];if(!t)return;mx=t.clientX;my=t.clientY;schedule();},{passive:true});
+    addEventListener('touchend',()=>{mx=my=-9999;schedule();},{passive:true});
+    let st=0;
+    function onSR(){refresh=true;schedule();clearTimeout(st);st=setTimeout(()=>{refresh=true;schedule();},80);}
+    addEventListener('scroll',onSR,{passive:true});
+    addEventListener('resize',onSR);
+    refreshRects();
+  })();
+</script>
+</body>
+</html>
